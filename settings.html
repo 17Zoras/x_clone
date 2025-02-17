@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - X Clone</title>
+    <style>
+        body {
+            background-color: #000000;
+            color: #1d9bf0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            justify-content: left;
+            margin-left: 50px;
+            padding: 20px;
+        }
+        .settings-panel {
+            width: 60%;
+            background: #000000;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .settings-panel h2 {
+            color: #ffffff;
+        }
+        .setting-section {
+            margin-bottom: 10px;
+            padding: 15px;
+            background: #000000;
+            border-radius: 8px;
+        }
+        .setting-section h3 {
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .setting-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .setting-option label {
+            color: #8899A6;
+        }
+        .setting-option input[type="checkbox"] {
+            transform: scale(1.2);
+        }
+        .setting-option input[type="text"],
+        .setting-option input[type="password"] {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #38444D;
+            background: #000000;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="settings-panel">
+            <h1>Settings</h1>
+
+            <!-- Account Section -->
+            <div class="setting-section">
+                <h2>Account</h2>
+                <div class="setting-option">
+                    <label>Username</label>
+                    <input type="text" placeholder="Change Username">
+                </div>
+                <div class="setting-option">
+                    <label>Password</label>
+                    <input type="password" placeholder="Change Password">
+                </div>
+            </div>
+
+            <!-- Privacy Section -->
+            <div class="setting-section">
+                <h2>Privacy</h2>
+                <div class="setting-option">
+                    <label>Private Account</label>
+                    <input type="checkbox">
+                </div>
+                <div class="setting-option">
+                    <label>Allow Tagging</label>
+                    <input type="checkbox" checked>
+                </div>
+            </div>
+
+            <!-- Notifications Section -->
+            <div class="setting-section">
+                <h2>Notifications</h2>
+                <div class="setting-option">
+                    <label>Email Notifications</label>
+                    <input type="checkbox" checked>
+                </div>
+                <div class="setting-option">
+                    <label>Push Notifications</label>
+                    <input type="checkbox">
+                </div>
+            </div>
+
+            <!-- Appearance Section -->
+            <div class="setting-section">
+                <h2>Appearance</h2>
+                <div class="setting-option">
+                    <label>Dark Mode</label>
+                    <input type="checkbox" checked>
+                </div>
+                <div class="setting-option">
+                    <label>Font Size</label>
+                    <input type="text" placeholder="Medium">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
