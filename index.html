@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X Clone</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #e7e9ea;
+            display: flex;
+            justify-content: center;
+        }
+        nav {
+            width: 250px;
+            min-height: 100vh;
+            border-right: 1px solid #2f3336;
+            padding-top: 20px;
+            position: fixed;
+            left: 0;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        nav li {
+            margin-bottom: 20px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #e7e9ea;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+        }
+        nav a i {
+            font-size: 24px;
+            margin-right: 15px;
+        }
+        .main-content {
+            width: 600px;
+            border-left: 1px solid #2f3336;
+            border-right: 1px solid #2f3336;
+            min-height: 100vh;
+            margin-left: 250px;
+            margin-right: 350px;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            display: flex;
+            justify-content: space-around;
+            border-bottom: 1px solid #2f3336;
+        }
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px 0;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .tab.active {
+            border-bottom: 4px solid #1d9bf0;
+            color: #1d9bf0;
+        }
+        .content-section {
+            display: none;
+            flex: 1;
+            padding: 15px;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .tweet-input {
+            padding: 15px;
+            border-bottom: 1px solid #2f3336;
+            display: flex;
+        }
+        .tweet-input img {
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .tweet-input textarea {
+            flex: 1;
+            background-color: #000;
+            color: #e7e9ea;
+            border: none;
+            resize: none;
+            font-size: 18px;
+            outline: none;
+        }
+        .tweet-input button {
+            background-color: #1d9bf0;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin-left: 10px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        aside {
+            width: 350px;
+            min-height: 100vh;
+            padding: 15px;
+            position: fixed;
+            right: 0;
+            top: 0;
+        }
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: #202327;
+            padding: 10px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+        .search-bar input {
+            background-color: transparent;
+            border: none;
+            color: #e7e9ea;
+            margin-left: 10px;
+            outline: none;
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <nav>
+        <ul>
+            <li>
+                <a href="#">
+                    <i class="fab fa-x-twitter"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-home"></i> Home
+                </a>
+            </li>
+            <li>
+                
+                <a href="explore.html">
+                    <span class="icon"><i class="fas fa-hashtag"></i></span>
+                    <span class="text">Explore</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fas fa-bell"></i> Notifications
+                </a>
+            </li>
+            <li>
+                <a href="messages.html">
+                    <i class="fas fa-envelope"></i> Messages
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-bookmark"></i> Bookmarks
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-list"></i> Lists
+                </a>
+            </li>
+            <li>
+                <a href="login.html">
+                    <i class="fas fa-user"></i> Profile
+                </a>
+            </li>
+            <li>
+                <a href="settings.html">
+                    <i class="fas fa-ellipsis-h"></i> Settings
+                </a>
+            </li>
+        </ul>
+    </nav>
+    
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <!-- Header with Tabs -->
+        <div class="header">
+            <div id="forYouTab" class="tab active" onclick="switchTab('forYou')">For You</div>
+            <div id="followingTab" class="tab" onclick="switchTab('following')">Following</div>
+        </div>
+         <!-- Tweet Input Box -->
+         <div style="padding: 15px; border-bottom: 1px solid #2f3336; display: flex;">
+            <img src="https://via.placeholder.com/50" alt="User Avatar" style="border-radius: 50%; margin-right: 10px;">
+            <textarea id="tweetInput" placeholder="What's happening?" maxlength="280" style="flex: 1; background-color: #000; color: #e7e9ea; border: none; resize: none; font-size: 18px; outline: none;"></textarea>
+            <button onclick="postTweet()" style="background-color: #1d9bf0; color: #fff; border: none; padding: 10px 20px; margin-left: 10px; border-radius: 20px; cursor: pointer;">Post</button>
+        </div>
+
+        <!-- Tweets Feed -->
+        <div id="tweetsFeed" style="flex: 1; padding: 15px;">
+            <!-- Tweets will be dynamically added here -->
+        </div>
+
+        <!-- Content Sections -->
+        <div id="forYouContent" class="content-section active">
+            <!-- "For You" content goes here -->
+            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">At dawn from the gateway to Mars, the launch of Starship's second flight test <a href="https://t.co/ffKnsVKwG4">pic.twitter.com/ffKnsVKwG4</a></p>&mdash; SpaceX (@SpaceX) <a href="https://twitter.com/SpaceX/status/1732824684683784516?ref_src=twsrc%5Etfw">December 7, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Never forget <a href="https://twitter.com/DefiantLs?ref_src=twsrc%5Etfw">@DefiantLs</a> <a href="https://t.co/ZEH9U1Oz10">pic.twitter.com/ZEH9U1Oz10</a></p>&mdash; Rothmus 🏴 (@Rothmus) <a href="https://twitter.com/Rothmus/status/1891284262411723201?ref_src=twsrc%5Etfw">February 17, 2025</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Alright twitter artists now finish the body <a href="https://t.co/IEx2F9zfQz">pic.twitter.com/IEx2F9zfQz</a></p>&mdash; 💫K-art💫 (@Kartkaprokai) <a href="https://twitter.com/Kartkaprokai/status/1891097447524348323?ref_src=twsrc%5Etfw">February 16, 2025</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Calling all developers! 📣<br><br>Innovate with our real-time and historical data on the X API.<br><br>Get started with Pro👇</p>&mdash; Developers (@XDevelopers) <a href="https://twitter.com/XDevelopers/status/1861111969639481848?ref_src=twsrc%5Etfw">November 25, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Young men in New Zealand are all done with the rainbow parades.<a href="https://t.co/q3NG2uhUqV">pic.twitter.com/q3NG2uhUqV</a></p>&mdash; Billboard Chris 🇨🇦🇺🇸 (@BillboardChris) <a href="https://twitter.com/BillboardChris/status/1890737952696811618?ref_src=twsrc%5Etfw">February 15, 2025</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Damnnnnnnn 🤯 This is really crisp anime.<br><br>The best anime workflow right now is Midjourney Niji to Luma Ray 2. <br><br>Check it out and try for yourself!<a href="https://t.co/LHUnrds9kH">pic.twitter.com/LHUnrds9kH</a></p>&mdash; PJ Ace (@PJaccetturo) <a href="https://twitter.com/PJaccetturo/status/1891237847954325833?ref_src=twsrc%5Etfw">February 16, 2025</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Breaking: MSNBC Rachel Maddow Caught In A Desperate Attempt To Defame Elon Musk And Tesla<br><br>For Our Latest Reports Watch On X Live:<a href="https://t.co/S9cbFL1vkX">https://t.co/S9cbFL1vkX</a> <a href="https://t.co/TFdoUgW6f3">pic.twitter.com/TFdoUgW6f3</a></p>&mdash; Alex Jones (@RealAlexJones) <a href="https://twitter.com/RealAlexJones/status/1890959761530552363?ref_src=twsrc%5Etfw">February 16, 2025</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+        </div>
+        <div id="followingContent" class="content-section">
+            <!-- "Following" content goes here -->
+            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Most people don’t realize how much sickness we all lived with before modern medicine.<br><br>The measles vaccination alone is responsible for half a percent of all US income this year, $76.4 billion. That is just from the reduced disease burden, it doesn’t include reduced medical costs <a href="https://t.co/OaTFCPKqSK">pic.twitter.com/OaTFCPKqSK</a></p>&mdash; Ethan Mollick (@emollick) <a href="https://twitter.com/emollick/status/1891336774028259713?ref_src=twsrc%5Etfw">February 17, 2025</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Interesting thread <a href="https://t.co/MvUjIP9UUw">https://t.co/MvUjIP9UUw</a></p>&mdash; Elon Musk (@elonmusk) <a href="https://twitter.com/elonmusk/status/1891315012808941867?ref_src=twsrc%5Etfw">February 17, 2025</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+            <blockquote class="twitter-tweet"><p lang="qme" dir="ltr">💯 <a href="https://t.co/GLDXRem2h4">pic.twitter.com/GLDXRem2h4</a></p>&mdash; Queen BG (@WomanOfFortune) <a href="https://twitter.com/WomanOfFortune/status/1891315571704123647?ref_src=twsrc%5Etfw">February 17, 2025</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+            <blockquote class="twitter-tweet"><p lang="qme" dir="ltr"> <a href="https://t.co/Ug3CLe8y0k">pic.twitter.com/Ug3CLe8y0k</a></p>&mdash; Heather Hill (@4HeatherHill) <a href="https://twitter.com/4HeatherHill/status/1891316944420167915?ref_src=twsrc%5Etfw">February 17, 2025</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">&quot;Please learn from our mistakes. Don&#39;t do exactly the same things that we did, or you&#39;ll end up in ten years with having nothing to show for it.&quot; — Nicholas Carlini urging AI researchers to avoid the pitfalls of past adversarial ML research at the Vienna Alignment Workshop 2024. <a href="https://t.co/hSHx9527UP">pic.twitter.com/hSHx9527UP</a></p>&mdash; FAR.AI (@farairesearch) <a href="https://twitter.com/farairesearch/status/1841016448161878463?ref_src=twsrc%5Etfw">October 1, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">chatgpt 4o update<br><br>this took a couple tries<br><br>same prompt: Write a p5.js script that simulates 100 colorful balls bouncing inside a sphere. Each ball should leave behind a fading trail showing its recent path. The container sphere should rotate slowly. Make sure to implement… <a href="https://t.co/aMO0SD802T">https://t.co/aMO0SD802T</a> <a href="https://t.co/6wloPPoapW">pic.twitter.com/6wloPPoapW</a></p>&mdash; AK (@_akhaliq) <a href="https://twitter.com/_akhaliq/status/1891296414174490897?ref_src=twsrc%5Etfw">February 17, 2025</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+        
+       
+
+         <!-- Right-Side Panel -->
+    <aside style="width: 350px; min-height: 100vh; padding: 15px; position: fixed; right: 0; border-left: 1px solid #2f3336;">
+        <!-- Search Bar -->
+        <div style="background-color: #202327; padding: 10px; border-radius: 20px; display: flex; align-items: center; margin-bottom: 20px;">
+            <i class="fas fa-search" style="color: #6e767d; margin-right: 10px;"></i>
+            <input type="text" id="searchInput" oninput="searchTweets()" placeholder="Search X" style="background-color: transparent; border: none; color: #e7e9ea; outline: none; flex: 1;">
+        </div>
+
+        <!-- Search Results -->
+        <div id="searchResults" style="display: none;">
+            <!-- Search results will be displayed here -->
+        </div>
+    </aside>
+            
+    
+    </body>
+    <script>
+        function switchTab(tab) {
+            const forYouTab = document.getElementById('forYouTab');
+            const followingTab = document.getElementById('followingTab');
+            const forYouContent = document.getElementById('forYouContent');
+            const followingContent = document.getElementById('followingContent');
+    
+            if (tab === 'forYou') {
+                forYouTab.classList.add('active');
+                followingTab.classList.remove('active');
+                forYouContent.classList.add('active');
+                followingContent.classList.remove('active');
+            } else if (tab === 'following') {
+                followingTab.classList.add('active');
+                forYouTab.classList.remove('active');
+                followingContent.classList.add('active');
+                forYouContent.classList.remove('active');
+            }
+        }
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        fetchTrendingTopics();
+        fetchTweets();
+    });
+
+    // Fetch Trending Topics
+    function fetchTrendingTopics() {
+        fetch("/api/trending")
+            .then(response => response.json())
+            .then(data => {
+                let trendingList = document.getElementById("trendingList");
+                trendingList.innerHTML = ""; // Clear existing content
+                data.forEach(topic => {
+                    trendingList.innerHTML += `<li style="padding: 10px 0; border-bottom: 1px solid #333;">
+                        <a href="#" style="text-decoration: none; color: #1da1f2; font-weight: bold;">${topic.hashtag}</a>
+                        <p style="margin: 5px 0 0; color: #8899a6;">${topic.tweets}</p>
+                    </li>`;
+                });
+            });
+    }
+
+    // Fetch Tweets
+    function fetchTweets() {
+        fetch("/api/tweets")
+            .then(response => response.json())
+            .then(data => {
+                let tweetsFeed = document.getElementById("tweetsFeed");
+                tweetsFeed.innerHTML = "";
+                data.forEach(tweet => {
+                    tweetsFeed.innerHTML += `<div style="background-color: #1a1a1a; padding: 15px; margin-bottom: 10px; border: 1px solid #333; border-radius: 5px;">
+                        <p style="margin: 0; color: #ffffff;">${tweet.content}</p>
+                        <p style="margin: 5px 0 0; color: #8899a6; font-size: 14px;">${tweet.username} · ${tweet.time}</p>
+                    </div>`;
+                });
+            });
+    }
+
+    // Post a Tweet
+    function postTweet() {
+        let tweetInput = document.getElementById("tweetInput").value;
+        if (!tweetInput.trim()) return;
+
+        fetch("/api/tweet", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ content: tweetInput })
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("tweetInput").value = "";
+            fetchTweets();
+        });
+    }
+    function fetchUserProfile(username) {
+            fetch(`/api/profile/${username}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert("User not found!");
+                        return;
+                    }
+                    document.getElementById("profileName").innerText = data.name;
+                    document.getElementById("profileUsername").innerText = data.username;
+                    document.getElementById("profileBio").innerText = data.bio;
+
+                    fetchUserTweets(username);
+                });
+        }
+
+        function fetchUserTweets(username) {
+            fetch(`/api/profile/${username}/tweets`)
+                .then(response => response.json())
+                .then(data => {
+                    let tweetsList = document.getElementById("profileTweets");
+                    tweetsList.innerHTML = "";
+                    data.forEach(tweet => {
+                        tweetsList.innerHTML += `<li>${tweet}</li>`;
+                    });
+                });
+        }
+
+        function updateProfile() {
+            let username = "user1";  // Hardcoded for now
+            let newName = document.getElementById("newName").value;
+            let newBio = document.getElementById("newBio").value;
+
+            fetch(`/api/profile/${username}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name: newName, bio: newBio })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                fetchUserProfile(username);
+            });
+        }
+        document.addEventListener("DOMContentLoaded", function() {
+    fetchUserProfile();
+});
+
+function fetchUserProfile() {
+    fetch("/api/profile")
+        .then(response => response.json())
+        .then(data => {
+            if (data.logged_in) {
+                document.getElementById("sidebarUsername").innerText = data.username;
+                document.getElementById("sidebarHandle").innerText = "@" + data.username;
+                document.getElementById("profileAvatar").src = data.avatar;
+                document.getElementById("homeAvatar").src = data.avatar;
+            } else {
+                window.location.href = 'login.html';
+            }
+        });
+}
+
+
+    </script>
+    
+
+ 
+
+
+ 
+
