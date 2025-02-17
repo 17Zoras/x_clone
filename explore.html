@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore - Dark Mode</title>
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+            color: #ffffff;
+            display: flex;
+        }
+        aside {
+            width: 20%;
+            max-width: 200px;
+            background-color: #000000;
+            padding: 10px;
+            border-right: 1px solid #333;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        nav li {
+            margin-bottom: 15px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #1a1a1a;
+        }
+        nav a .icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        nav a .text {
+            font-size: 18px;
+        }
+        main {
+            width: 60%;
+            max-width: 600px;
+            padding: 20px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 20px;
+            border: none;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        section {
+            margin-bottom: 20px;
+        }
+        .trending-topics ul,
+        .trends-for-you ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .trending-topics li,
+        .trends-for-you li {
+            background-color: #1a1a1a;
+            padding: 10px;
+            margin-bottom: 5px;
+            border: 1px solid #333;
+            border-radius: 5px;
+        }
+        .trending-topics a,
+        .trends-for-you a {
+            text-decoration: none;
+            color: #1da1f2;
+            font-weight: bold;
+        }
+        .trending-topics p,
+        .trends-for-you p {
+            margin: 5px 0 0;
+            color: #8899a6;
+        }
+        .curated-tweets .tweet {
+            background-color: #1a1a1a;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 1px solid #333;
+            border-radius: 5px;
+        }
+        .curated-tweets .tweet p {
+            margin: 0;
+        }
+        .curated-tweets .tweet .username {
+            margin: 5px 0 0;
+            color: #8899a6;
+            font-size: 14px;
+        }
+        .right-sidebar {
+            width: 20%;
+            max-width: 300px;
+            background-color: #000000;
+            padding: 20px;
+            border-left: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+    <!-- Left Sidebar -->
+    <aside>
+        <nav>
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fas fa-home"></i></span>
+                        <span class="text">Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fas fa-hashtag"></i></span>
+                        <span class="text">Explore</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fas fa-bell"></i></span>
+                        <span class="text">Notifications</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fas fa-envelope"></i></span>
+                        <span class="text">Messages</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fas fa-bookmark"></i></span>
+                        <span class="text">Bookmarks</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fas fa-list"></i></span>
+                        <span class="text">Lists</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fas fa-user"></i></span>
+                        <span class="text">Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fas fa-cog"></i></span>
+                        <span class="text">Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" placeholder="Search X">
+        </div>
+
+        <!-- Trending Topics Section -->
+        <section class="trending-topics">
+            <h2>Trending Topics</h2>
+            <ul>
+                <li>
+                    <a href="#">#Topic1</a>
+                    <p>12.3K Tweets</p>
+                </li>
+                <!-- Repeat for other trending topics -->
+            </ul>
+        </section>
+
+        <!-- Curated Tweets Section -->
+        <section class="curated-tweets">
+            <h2>What's Happening</h2>
+            <div class="tweet">
+                <p>This is a sample tweet content.</p>
+                <p class="username">@username · 1h</p>
+            </div>
+            <!-- Repeat for other curated tweets -->
+        </section>
+    </main>
+
+    <!-- Right Sidebar -->
+    <aside class="right-sidebar">
+        <h2>Trends for you</h2>
+        <ul>
+            <li>
+                <a href="#">#Trend1</a>
+                <p>8,765 Tweets</p>
+            </li>
+
+ 
