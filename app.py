@@ -9,7 +9,10 @@ app = Flask(__name__)
 # Set database path dynamically
 basedir = os.path.abspath(os.path.dirname(__file__))
 db_path = os.path.join(basedir, 'users.db')
-print(f"Database file location: {db_path}")  # Debugging: Check the exact path Flask is using for the database
+
+# Debugging: Check the exact path Flask is using for the database
+print(f"Database file location: {db_path}")
+
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Avoids warning
 
@@ -29,7 +32,7 @@ class User(db.Model):
 
 # Ensure database tables exist
 with app.app_context():
-    db.create_all()
+    db.create_all()  # This ensures the tables are created in the database file if they don't already exist
 
 # Home route
 @app.route('/')
