@@ -9,6 +9,7 @@ app = Flask(__name__)
 # Set database path dynamically
 basedir = os.path.abspath(os.path.dirname(__file__))
 db_path = os.path.join(basedir, 'users.db')
+print(f"Database file location: {db_path}")  # Debugging: Check the exact path Flask is using for the database
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Avoids warning
 
@@ -70,6 +71,9 @@ def register():
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
 
+        # Debugging log for received form data
+        print(f"Received Form Data: Username={username}, Email={email}, Password={password}, Confirm={confirm_password}")
+
         if not username or not email or not password or not confirm_password:
             flash("All fields are required!", "danger")
             return redirect(url_for('register'))
@@ -88,12 +92,12 @@ def register():
             new_user = User(username=username, email=email, password=hashed_password)
 
             db.session.add(new_user)
-            db.session.commit()
+            db.session.commit()  # Ensure commit happens to store the new user
 
             flash('Registration successful! Please log in.', 'success')
             return redirect(url_for('login'))
         except Exception as e:
-            db.session.rollback()
+            db.session.rollback()  # Rollback in case of error
             flash(f"Database error: {str(e)}", 'danger')
 
     return render_template('register.html')
@@ -108,4 +112,3 @@ def logout():
 # Run the app
 if __name__ == '__main__':
     app.run(debug=True)
-    print(f"Database file location: {db_path}")
